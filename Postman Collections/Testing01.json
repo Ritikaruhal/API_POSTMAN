@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "da0840de-250c-4d6d-9156-911386f97684",
+		"name": "myWorkspacePetStore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "aa424e2a-d34f-45d9-bae8-bc79194cc6e9",
+						"exec": [
+							"const randomnum = Math.floor((Math.random() * 100) + 1);\r",
+							"var randomstr = \"john\" + Math.random().toString(36).substring(2);\r",
+							"\r",
+							"pm.environment.set(\"id\", randomnum);\r",
+							"pm.collectionVariables.set(\"username\", randomstr);\r",
+							"pm.collectionVariables.set(\"firstName\", randomstr);\r",
+							"pm.collectionVariables.set(\"lastName\", randomstr);\r",
+							"pm.collectionVariables.set(\"email\", randomstr + \"@gmail.com\");\r",
+							"pm.collectionVariables.set(\"password\", randomstr);\r",
+							"pm.collectionVariables.set(\"phone\", \"1111111111\");\r",
+							"pm.collectionVariables.set(\"userStatus\", 0);\r",
+							"\r",
+							"//console.log(randomnum);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8314c996-0130-4264-9def-794b53aad450",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "65133ddb-1c12-4270-8f28-42fc44a79949",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{id}},\r\n  \"username\": \"{{username}}\",\r\n  \"firstName\": \"{{firstName}}\",\r\n  \"lastName\": \"{{lastName}}\",\r\n  \"email\": \"{{email}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"phone\": \"{{phone}}\",\r\n  \"userStatus\": {{userStatus}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://petstore.swagger.io/v2/user",
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://petstore.swagger.io/v2/user' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"id\": 1,\r\n  \"username\": \"Annu\",\r\n  \"firstName\": \"Annu\",\r\n  \"lastName\": \"Mishra\",\r\n  \"email\": \"annumishra12@gmail.com\",\r\n  \"password\": \"annu@\",\r\n  \"phone\": \"9876543215\",\r\n  \"userStatus\": 0\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get UserByName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f19f3110-2bd2-47bb-b5a1-53e79f19b304",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "d414007b-f156-4895-98fe-85f5e200b737",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "https://petstore.swagger.io/v2/user/{{firstName}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Update UserByName",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6354b231-cabd-448e-ab4c-e39d625aefdb",
+						"exec": [
+							"var randomstr = \"john\" + Math.random().toString(36).substring(2);\r",
+							"\r",
+							"// Updating email & phone\r",
+							"pm.collectionVariables.set(\"email\", randomstr +\"@gmail.com\");\r",
+							"pm.collectionVariables.set(\"phone\",\"2222222222\");"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "38924cb8-bd55-4532-918e-2d3a073f90c2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "351bec34-7535-4160-9490-9205996f8edd",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{id}},\r\n  \"username\": \"{{username}}\",\r\n  \"firstName\": \"{{firstName}}\",\r\n  \"lastName\": \"{{lastName}}\",\r\n  \"email\": \"{{email}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"phone\": \"{{phone}}\",\r\n  \"userStatus\": {{userStatus}}\r\n}"
+				},
+				"url": "https://petstore.swagger.io/v2/user/{{firstName}}"
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1dccf7c-0129-41bf-be70-088206cc4dc8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.environment.unset(\"id\");\r",
+							"pm.collectionVariables.unset(\"username\");\r",
+							"pm.collectionVariables.unset(\"firstName\");\r",
+							"pm.collectionVariables.unset(\"lastName\");\r",
+							"pm.collectionVariables.unset(\"email\");\r",
+							"pm.collectionVariables.unset(\"password\");\r",
+							"pm.collectionVariables.unset(\"phone\");\r",
+							"pm.collectionVariables.unset(\"userStatus\");"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "dbdf9efd-3a62-49cf-91e1-32d9ab6418fb",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{id}},\r\n  \"username\": \"{{username}}\",\r\n  \"firstName\": \"{{firstName}}\",\r\n  \"lastName\": \"{{lastName}}\",\r\n  \"email\": \"{{email}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"phone\": \"{{phone}}\",\r\n  \"userStatus\": {{userStatus}}\r\n}"
+				},
+				"url": "https://petstore.swagger.io/v2/user/{{firstName}}"
+			},
+			"response": []
+		}
+	]
+}
