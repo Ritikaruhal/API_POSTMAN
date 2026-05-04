@@ -1,0 +1,354 @@
+{
+	"info": {
+		"_postman_id": "00fa9683-9152-43f6-b3f3-3baaf9e60bc9",
+		"name": "myworkspace",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "myFolder",
+			"item": [
+				{
+					"name": "GET Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6deb341-ad94-4efd-85cb-856699fda018",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Successful POST request\",() => {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+									"});\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", () => {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.name).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.id).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.number).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.address).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.course).to.be.an(\"string\");\r",
+									"});\r",
+									"pm.test(\"Validate student details\", () => {\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(jsonData.id).to.eql(\"1\");                     \r",
+									"    pm.expect(jsonData.name).to.eql(\"Ritika Ruhal\");        \r",
+									"    pm.expect(jsonData.number).to.eql(\"9876543210\");\r",
+									"    pm.expect(jsonData.address).to.eql(\"Gurugram, Haryana\");\r",
+									"    pm.expect(jsonData.course).to.eql(\"Computer Science\");  \r",
+									"});\r",
+									"\r",
+									"var schema={\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"title\": \"Generated schema for Root\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"id\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"number\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"address\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"course\": {\r",
+									"      \"type\": \"string\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"id\",\r",
+									"    \"name\",\r",
+									"    \"number\",\r",
+									"    \"address\",\r",
+									"    \"course\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.test(\"Schema is valid\", function () {\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"});\r",
+									"//Getting value of variables\r",
+									"console.log(\"Test script at collection level\");\r",
+									"console.log(pm.variables.get(\"url_local\"));\r",
+									"console.log(pm.globals.get(\"url_global\"));\r",
+									"console.log(pm.environment.get(\"userid_qa_env\"));\r",
+									"console.log(pm.collectionVariables.get(\"userid_collect\"));"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3c099f6b-2d6e-4225-8eee-4d7be49c97be",
+								"exec": [
+									"console.log(\"pre-request at request level\");\r",
+									"pm.variables.set(\"url_local\", \"http://localhost:\");\r",
+									"pm.globals.set(\"url_global\", \"http://localhost:\");\r",
+									"pm.environment.set(\"userid_qa_env\", \"1\");\r",
+									"pm.collectionVariables.set(\"userid_collect\", \"3\");\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "7a551c76-c357-4383-815c-bb86449769e8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url_global}}3000/students/{{prac}}"
+					},
+					"response": []
+				},
+				{
+					"name": "POST Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b629f009-f01e-47ec-a3c8-8a68b621c208",
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Successful POST request\",() => {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);\r",
+									"});\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", () => {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.name).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.id).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.number).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.address).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.course).to.be.an(\"string\");\r",
+									"});\r",
+									"pm.test(\"Validate student details\", () => {\r",
+									"    var jsonData = pm.response.json();\r",
+									"                     \r",
+									"    pm.expect(jsonData.name).to.eql(\"Roma Singh\");        \r",
+									"    pm.expect(jsonData.number).to.eql(\"9876523410\");\r",
+									"    pm.expect(jsonData.address).to.eql(\"Gurugram, Haryana\");\r",
+									"    pm.expect(jsonData.course).to.eql(\"Computer Science\");  \r",
+									"});\r",
+									"\r",
+									"var schema={\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"title\": \"Generated schema for Root\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"id\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"number\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"address\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"course\": {\r",
+									"      \"type\": \"string\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"id\",\r",
+									"    \"name\",\r",
+									"    \"number\",\r",
+									"    \"address\",\r",
+									"    \"course\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Schema is valid\", function () {\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "e6ebef78-1eb6-46df-9d4a-00cc428b9c90",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": \"7\",\r\n        \"name\": \"anshu Singh\",\r\n        \"number\": \"9823523410\",\r\n        \"address\": \"Hisar, Haryana\",\r\n        \"course\": \"Computer Science\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": "{{url_global}}3000/students"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"id": "b96bcb90-f73a-42db-adc1-d83ce56e3d77",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": ""
+					},
+					"response": []
+				}
+			],
+			"id": "aca05365-1d8f-45a4-aa42-8035970f4f4d",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "74a90559-5de6-47de-bac9-96c4e0d5a3ec",
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							"console.log(\"pre-request script at folder level\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5824a99-b91d-42a8-afd3-7d4de22c7b63",
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							"console.log(\"Test script at folder level\");"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Through curl",
+			"id": "b88b88b0-f9ca-4221-a081-4277c7465551",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\": \"foo\", \"body\": \"bar\", \"userId\": 1}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://jsonplaceholder.typicode.com/posts",
+				"description": "Generated from cURL: curl -X POST https://jsonplaceholder.typicode.com/posts \\\r\n    -H \"Content-Type: application/json\" \\\r\n    -d '{\"title\": \"foo\", \"body\": \"bar\", \"userId\": 1}'"
+			},
+			"response": []
+		},
+		{
+			"name": "https://jsonplaceholder.typicode.com/posts/1",
+			"id": "9d3e9c89-adb4-4c25-8f19-e1ba960cbbf7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://jsonplaceholder.typicode.com/posts/1",
+				"description": "Generated from cURL: curl -X GET https://jsonplaceholder.typicode.com/posts/1"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "1c8999ee-40ad-4d01-9ebc-e862f3d41e7b",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					"console.log(\"pre - request script at collection level\")"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "1993c7b3-bbb2-4add-8923-ed69f280e806",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					"console.log(\"Test script at collection level\");"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userid_collect",
+			"value": ""
+		}
+	]
+}
